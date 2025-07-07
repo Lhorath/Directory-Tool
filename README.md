@@ -1,7 +1,10 @@
 Icon: fa-rocket
+
 Description: 
 This is a single-file, zero-dependency PHP script that automatically generates a beautiful, modern, and responsive web page to showcase your projects. It works by simply scanning its own directory for project folders and pulling metadata directly from each project's README.md file.
+
 GitHub: https://github.com/Lhorath/Directory-Tool/
+
 Live: http://dab.nerdygamertools.com/
 
 # Directory Tool
