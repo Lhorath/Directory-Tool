@@ -1,7 +1,10 @@
 Icon: fa-rocket
+
 Description: A single-file PHP script that dynamically generates a project showcase by scanning directories and parsing README.md files.
+
 GitHub: https://github.com/Lhorath/Directory-Tool/
-Live: http://dab.nerdygamertools.com/
+
+Live: http://projects.nerdygamertools.com/
 
 # Directory Tool: A Dynamic PHP Project Hub
 
