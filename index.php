@@ -193,7 +193,7 @@
     </div> <!-- /end container -->
 
     <footer class="text-center py-5 text-gray-500 bg-black/30 border-t border-gray-800/50">
-        &copy; <?php echo date("Y"); ?> directory-tool.dackdns.ddns.net
+        Copyright (c) 2026 MacWeb Canada | Professional Online Solutions | macweb.ca
     </footer>
 
 </body>
