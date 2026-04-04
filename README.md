@@ -4,7 +4,7 @@ Description: A single-file PHP script that dynamically generates a project showc
 
 GitHub: https://github.com/Lhorath/Directory-Tool/
 
-Live: http://projects.nerdygamertools.com/
+Live: http://directory-tool.dackdns.ddns.net/
 
 # Directory Tool: A Dynamic PHP Project Hub
 

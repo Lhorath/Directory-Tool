@@ -1,4 +1,16 @@
 <?php
+    // Public site origin (no trailing slash) — matches production URL
+    define('SITE_ORIGIN', 'http://directory-tool.dackdns.ddns.net');
+
+    // Web path prefix for links (e.g. / or /subdir/) — works at domain root or in a subfolder
+    $scriptName = $_SERVER['SCRIPT_NAME'] ?? '/index.php';
+    $basePath = str_replace('\\', '/', dirname($scriptName));
+    if ($basePath === '/' || $basePath === '\\' || $basePath === '.') {
+        define('BASE_URL', '/');
+    } else {
+        define('BASE_URL', rtrim($basePath, '/') . '/');
+    }
+
     // --- SEO & URL HELPER ---
     // This dynamically gets the current page's URL for canonical and social media tags.
     $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https" : "http";
@@ -11,26 +23,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Primary Meta Tags -->
-    <title>Project Hub | nerdygamertools.com</title>
-    <meta name="description" content="A dynamic project hub showcasing web applications and utilities from nerdygamertools.com, generated automatically from project folders.">
-    <meta name="keywords" content="PHP, project hub, portfolio, web development, web applications, utilities, nerdygamertools">
-    <meta name="author" content="nerdygamertools.com">
+    <title>Project Hub | directory-tool.dackdns.ddns.net</title>
+    <meta name="description" content="A dynamic project hub showcasing web applications and utilities, generated automatically from project folders.">
+    <meta name="keywords" content="PHP, project hub, portfolio, web development, web applications, utilities, directory tool">
+    <meta name="author" content="directory-tool.dackdns.ddns.net">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="<?php echo htmlspecialchars($currentUrl); ?>" />
 
     <!-- Open Graph / Facebook Meta Tags -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="<?php echo htmlspecialchars($currentUrl); ?>">
-    <meta property="og:title" content="Project Hub - nerdygamertools.com">
+    <meta property="og:title" content="Project Hub - directory-tool.dackdns.ddns.net">
     <meta property="og:description" content="A dynamic project hub showcasing web applications and utilities, generated automatically from project folders.">
-    <meta property="og:image" content="https://dab.nerdygamertools.com/assets/og-image.png"> <!-- IMPORTANT: Replace with a real URL to a preview image (e.g., a screenshot of the page) -->
+    <meta property="og:image" content="<?php echo htmlspecialchars(SITE_ORIGIN . '/assets/og-image.png'); ?>">
 
     <!-- Twitter Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="<?php echo htmlspecialchars($currentUrl); ?>">
-    <meta name="twitter:title" content="Project Hub - nerdygamertools.com">
+    <meta name="twitter:title" content="Project Hub - directory-tool.dackdns.ddns.net">
     <meta name="twitter:description" content="A dynamic project hub showcasing web applications and utilities, generated automatically from project folders.">
-    <meta name="twitter:image" content="https://dab.nerdygamertools.com/assets/og-image.png"> <!-- IMPORTANT: Replace with a real URL to a preview image -->
+    <meta name="twitter:image" content="<?php echo htmlspecialchars(SITE_ORIGIN . '/assets/og-image.png'); ?>">
 
     <!-- Theme Color for Browsers -->
     <meta name="theme-color" content="#ff003c">
@@ -47,7 +59,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Link to the external stylesheet -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="<?php echo htmlspecialchars(BASE_URL === '/' ? 'style.css' : rtrim(BASE_URL, '/') . '/style.css'); ?>">
 
 </head>
 <body class="text-gray-200 flex flex-col min-h-screen">
@@ -64,8 +76,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <?php
                 // --- CONFIGURATION ---
-                $projectsDirectory = './';
-                define('BASE_URL', '');
+                $projectsDirectory = __DIR__ . DIRECTORY_SEPARATOR;
 
                 // --- SCRIPT LOGIC ---
                 // Looks for a README.md in each project folder.
@@ -82,8 +93,13 @@
 
                         foreach ($projectFolders as $folder) {
                             $projectName = basename($folder);
+                            if ($projectName !== '' && $projectName[0] === '.') {
+                                continue;
+                            }
                             $formattedProjectName = ucwords(str_replace('-', ' ', $projectName));
-                            $projectUrl = BASE_URL . $folder;
+                            $projectUrl = BASE_URL === '/'
+                                ? '/' . rawurlencode($projectName)
+                                : rtrim(BASE_URL, '/') . '/' . rawurlencode($projectName);
 
                             // --- METADATA LOGIC FROM README.md ---
                             $projectIcon = 'fa-folder-open';
@@ -177,7 +193,7 @@
     </div> <!-- /end container -->
 
     <footer class="text-center py-5 text-gray-500 bg-black/30 border-t border-gray-800/50">
-        &copy; <?php echo date("Y"); ?> nerdygamertools.com
+        &copy; <?php echo date("Y"); ?> directory-tool.dackdns.ddns.net
     </footer>
 
 </body>

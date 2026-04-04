@@ -1,0 +1,18 @@
+# Directory Tool — Apache (document root or vhost pointing at this folder)
+# Production: http://directory-tool.dackdns.ddns.net/
+# Local files: D:\GitHub\Directory-Tool
+
+DirectoryIndex index.php
+Options -Indexes
+
+# If this app is deployed in a subfolder (not at domain root), create or edit
+# the vhost/docroot so SCRIPT_NAME reflects that path — PHP detects BASE_URL from it.
+# You can also uncomment and set RewriteBase to match, if you add rewrite rules later:
+# <IfModule mod_rewrite.c>
+#     RewriteEngine On
+#     RewriteBase /
+# </IfModule>
+
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+</IfModule>
